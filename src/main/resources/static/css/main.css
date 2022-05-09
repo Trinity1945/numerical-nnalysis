@@ -1,0 +1,112 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: darkgrey;
+}
+
+#nav_bar{
+	margin: 0;
+	padding: 0;
+}
+
+#nav_bar ul{
+	display: flex;
+	justify-content: center;
+	background-color: aquamarine;
+	margin: 0;
+}
+
+#nav_bar ul li{
+	list-style: none;
+	margin: 0;
+	padding: 10px;
+}
+
+#nav_bar ul li a{
+	text-decoration: none;
+}
+
+#nav_bar ul li a:hover{
+	color: coral;
+}
+
+#nav_bar ul li a:active{
+	color: crimson;
+}
+
+#main_page{
+	display: flex;
+	justify-content: center;
+}
+
+#none_left{
+	flex: 1;
+	/* background-color: red; */
+}
+
+#main_left{
+	flex: 3;
+	height: 650px;
+	background-color: bisque;
+	padding-left: 35px;
+}
+
+button{
+	box-shadow: 0 1px 2px #b9ecc4 inset,0 -1px 0 #6c9f76 inset,0 -2px 3px #b9ecc4 inset;
+	background: -webkit-linear-gradient(top,#90dfa2,#84d494);
+	background: -moz-linear-gradient(top,#90dfa2,#84d494);
+	background: linear-gradient(top,#90dfa2,#84d494);
+}
+
+#main_right{
+	flex:3 ;
+	background-color: cornsilk;
+}
+
+#none_right{
+	flex: 1;
+	/* background-color: red; */
+}
+
+.main_span{
+	text-align: center;
+}
+
+input{
+
+	font-size:12px;
+	/* 设置输入框中字体的大小 */
+
+	height:20px;
+	/* 设置输入框的高度 */
+
+	border-radius:4px;
+	/* 设置输入框的圆角的大小 */
+
+	border:1px solid #c8cccf;
+	/* 设置输入框边框的粗细和颜色 */
+
+	color:#986655;
+	/* 设置输入框中文字的颜色 */
+
+	outline:0;
+	/* 将输入框点击的时候出现的边框去掉 */
+
+	text-align:left;
+	/* 设置输入框中文字的位置 */
+
+	padding-left: 10px;
+
+	/*display:block;*/
+	/* 将输入框设置为块级元素 */
+
+	cursor: pointer;
+
+	box-shadow: 2px 2px 5px 1px #ccc;
+
+}
+
+input::-webkit-input-placeholder{
+	color: #986655;
+	font-size: 12px;
+}

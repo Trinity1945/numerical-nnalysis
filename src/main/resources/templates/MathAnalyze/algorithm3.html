@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>MathAnalyze</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<script th:src="@{/js/Jquery.js}" type="text/javascript"></script>
+	<script th:src="@{/js/echars.js}" type="text/javascript"></script>
+</head>
+<body>
+<div>
+	<div id="nav_bar">
+		<ul>
+			<li><a th:href="@{/algorithm1}">拉格朗日插值</a></li>
+			<li><a th:href="@{/algorithm2}">牛顿插值</a></li>
+			<li><a th:href="@{/algorithm3}">直线拟合</a></li>
+			<li><a th:href="@{/algorithm6}">多项式二次曲线拟合</a></li>
+			<li><a th:href="@{/algorithm4}">复化梯形公式</a></li>
+			<li><a th:href="@{/algorithm5}">欧拉函数</a></li>
+		</ul>
+	</div>
+	<div id="main_page">
+		<div id="none_left"></div>
+		<div id="main_left">
+			<p class="main_span">欧拉公式</p>
+			<form th:action="@{/tt}" method="get" id="algorithm1" onsubmit="return false">
+				<label for="x">请输入步长的值：</label>
+				<input id="x" name="x" type="text"><br>
+				<p></p>
+				<label for="n">请输入函数点数：</label>
+				<input id="n" name="n" type="number"><br>
+				<button type="button" id="saveClassButton">确定</button>
+			</form>
+			<div>
+				<form id="node_one">
+
+				</form>
+			</div>
+		</div>
+
+		<div id="main_right">
+			<p class="main_span">结果</p>
+			<div>
+			</div>
+		</div>
+		<div id="none_right"></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$('#saveClassButton').click(function () {
+		var data = new FormData(document.getElementById("algorithm1"));
+		$.ajax({
+			url: '/Euler',
+			type: 'post',
+			data: data,
+			datatype: 'json',
+			processData: false,
+			contentType: false,
+			timeout: 3000,//3秒后提示错误
+			success: function (result) {
+
+				// if (result.resultCode == 200) {
+				if (result.code===0) {
+					let par = document.querySelector("#node_one")
+					par.innerHTML = "<p style='text-align: center'>请输入函数起点：</p>"
+					var nodeX = 0;
+					for (var i = 0; i < 2; i++) {
+						let chl = document.createElement("input");
+						if (i % 2 == 0) {
+							let lab = document.createElement("span");
+							lab.innerText = "x" + nodeX + ":";
+							par.appendChild(lab)
+						}
+						if (i % 2 == 1) {
+							let lab = document.createElement("span");
+							lab.innerText = "y" + nodeX + ":";
+							nodeX += 1
+							par.appendChild(lab)
+						}
+						chl.setAttribute('type', 'text');
+						chl.setAttribute('name', 'x' + i);
+						par.appendChild(chl)
+						if (i % 2 == 1) {
+							let wrap = document.createElement("br")
+							par.appendChild(wrap)
+						}
+					}
+					let btn1 = document.createElement("button")
+					btn1.setAttribute("type", "button")
+					btn1.innerText = "提交"
+					btn1.addEventListener("click", Res)
+					par.appendChild(btn1)
+				}else{
+					alert("请输入正确的数字")
+				}
+			},
+			error: function (result) {
+				alert("系统错误")
+				console.log("请求失败")
+			}
+		});
+	});
+
+	function Res() {
+		var data2 = new FormData(document.getElementById("node_one"));
+		$.ajax({
+			url: '/EulerNode',
+			type: 'post',
+			data: data2,
+			processData: false,
+			contentType: false,
+			datatype: 'json',
+			success: function (result) {
+				if (result.code===0) {
+					let datax=[]
+					let datay=[]
+					for(let i=0;i<result.data.length;i++){
+						if(i%2===0) {
+							datax.push(result.data[i])
+						}
+					}
+					for(let i=0;i<result.data.length;i++){
+						if(i%2===1) {
+							datay.push(result.data[i])
+						}
+					}
+					let chartDom = document.getElementById('main_right');
+					let myChart = echarts.init(chartDom);
+					let option;
+					option = {
+						xAxis: {
+							type: 'category',
+							data: datax
+						},
+						yAxis: {
+							type: 'value'
+						},
+						series: [
+							{
+								data: datay,
+								type: 'line',
+								smooth: true
+							}
+						]
+					};
+					myChart.setOption(option);
+				}else{
+					alert("计算错误")
+				}
+			},
+			error: function (result) {
+				console.log("请求失败")
+			}
+		});
+	}
+</script>
+</html>
