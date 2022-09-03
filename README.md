@@ -1,11 +1,6 @@
-# 项目启动
-自行打包、或直接启动该项目，以下是打包后运行
+# 算法实现
 
-在打包的目录下启动打包好的jar包，如下：
-
-```shell
-java -jar Numerical-analysis-zyh-3.0.jar
-```
+![](https://img.shields.io/badge/java-SpringBoot-orange)
 
 启动成功如下：
 
