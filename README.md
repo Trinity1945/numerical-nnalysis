@@ -4,9 +4,10 @@
 该项目基于Spring Boot结合thymeleaf模板引擎实现，实现了6个常见的数值分析算法。
 ## 使用
 ```java
-git clone 
+git clone https://github.com/Venom-lemon/Numerical-Analysis.git
 ```
-启动成功如下：
+直接在本地启动即可运行
+启动效果如下（此处采用打包运行，打不打包都一样）：
 
 ![image-20220509082930284](https://picgo-liziyuan.oss-cn-hangzhou.aliyuncs.com/img202205090829345.png)
 
